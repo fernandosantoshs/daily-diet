@@ -1,0 +1,25 @@
+{
+  "name": "daily-diet-api",
+  "version": "1.0.0",
+  "description": "Rest API Daily Diet",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fernandosantoshs/daily-diet.git"
+  },
+  "keywords": [
+    "diet",
+    "api",
+    "daily",
+    "rest"
+  ],
+  "author": "Fernando Santos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fernandosantoshs/daily-diet/issues"
+  },
+  "homepage": "https://github.com/fernandosantoshs/daily-diet#readme"
+}
