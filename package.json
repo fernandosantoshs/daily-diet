@@ -4,6 +4,7 @@
   "description": "Rest API Daily Diet",
   "main": "index.js",
   "scripts": {
+    "dev": "tsx watch src/server.ts",
     "test": "npm run test"
   },
   "repository": {
@@ -21,5 +22,14 @@
   "bugs": {
     "url": "https://github.com/fernandosantoshs/daily-diet/issues"
   },
-  "homepage": "https://github.com/fernandosantoshs/daily-diet#readme"
+  "homepage": "https://github.com/fernandosantoshs/daily-diet#readme",
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "tsx": "^4.18.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "fastify": "^4.28.1",
+    "zod": "^3.23.8"
+  }
 }
