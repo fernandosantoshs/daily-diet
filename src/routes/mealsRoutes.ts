@@ -7,19 +7,20 @@ export async function mealsRoutes(app: FastifyInstance) {
     const createMealBodySchema = z.object({
       name: z.string(),
       description: z.string(),
-      date_time: z.coerce.date().default(new Date()),
       isOnDiet: z.boolean().default(true),
+      date: z.coerce.date().default(new Date()),
     });
 
-    const { name, description, date_time, isOnDiet } =
-      createMealBodySchema.parse(request.body);
+    const { name, description, date, isOnDiet } = createMealBodySchema.parse(
+      request.body
+    );
 
     const meal = {
       id: crypto.randomUUID(),
       name,
       description,
-      date_time,
       isOnDiet,
+      date,
     };
 
     return reply.status(201).send(meal);
