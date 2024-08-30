@@ -1,6 +1,7 @@
 import crypto from 'crypto';
 import { FastifyInstance } from 'fastify';
 import { z } from 'zod';
+import { knex } from '../database';
 
 export async function mealsRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
@@ -8,25 +9,29 @@ export async function mealsRoutes(app: FastifyInstance) {
       name: z.string(),
       description: z.string(),
       isOnDiet: z.boolean().default(true),
-      date: z.coerce.date().default(new Date()),
+      date: z.coerce.date(),
     });
 
-    const { name, description, date, isOnDiet } = createMealBodySchema.parse(
+    const { name, description, isOnDiet, date } = createMealBodySchema.parse(
       request.body
     );
 
-    const meal = {
-      id: crypto.randomUUID(),
-      name,
-      description,
-      isOnDiet,
-      date,
-    };
+    const meal = await knex('meals')
+      .insert({
+        id: crypto.randomUUID(),
+        name,
+        description,
+        is_on_diet: isOnDiet,
+        date: date.toISOString(),
+      })
+      .returning(['name', 'description', 'is_on_diet', 'date']);
 
     return reply.status(201).send(meal);
   });
 
   app.get('/', async (request, reply) => {
-    reply.status(200).send('Hello World !');
+    const meals = await knex('meals').select('*');
+
+    return reply.status(200).send(meals);
   });
 }
