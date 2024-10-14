@@ -150,10 +150,35 @@ export async function mealsRoutes(app: FastifyInstance) {
         return meal.is_on_diet == false;
       }).length;
 
+      const mealsSortedByDate = meals.sort((a, b) => {
+        if (a.date > b.date) {
+          return 1;
+        }
+        if (b.date > a.date) {
+          return -1;
+        }
+        return 0;
+      });
+
+      let current = 0,
+        bestSequence = 0;
+
+      mealsSortedByDate.map((meal) => {
+        if (meal.is_on_diet == true) {
+          current++;
+          bestSequence = current;
+        }
+
+        if (meal.is_on_diet == false) {
+          current = 0;
+        }
+      });
+
       const metrics = {
         totalMeals,
         mealsOnDiet,
         mealsNotOnDiet,
+        bestSequence,
       };
 
       return reply.status(200).send(metrics);
